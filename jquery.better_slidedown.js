@@ -58,17 +58,10 @@ $.fn.slideDown = function(duration, easing, callback)
 		element.animate(properties, options.duration, options.easing, function()
 		{
 			// Remove inline CSS
-			var propertyNames = [
-				'height', 'marginTop', 'marginBottom', 'paddingTop', 'paddingBottom'
-			];
-
-			element.each(function()
+			for (var prop in properties)
 			{
-				for (var i in propertyNames)
-				{
-					this.style[propertyNames[i]] = '';
-				}
-			});
+				element.css(prop, '');
+			}
 
 			options.complete.call(this);
 		});
