@@ -31,7 +31,7 @@ $.fn.slideDown = function(duration, easing, callback)
 		// -- this won't be visible to the user becase we're animating soon after
 		element.show();
 
-		// Get element properties that contribute to heighta
+		// Get element properties that contribute to heights
 		var properties = {
 			height:           element.height(),
 			'margin-top':     element.css('margin-top'),
@@ -39,6 +39,15 @@ $.fn.slideDown = function(duration, easing, callback)
 			'padding-top':    element.css('padding-top'),
 			'padding-bottom': element.css('padding-bottom')
 		};
+
+		$.each(properties, function(key, value)
+		{
+			// Filter out non-numeric properties, since we cannot animate those
+			if (isNaN(parseFloat(value)))
+			{
+				delete properties[key];
+			}
+		});
 
 		// Zero each property
 		for (var property in properties)
